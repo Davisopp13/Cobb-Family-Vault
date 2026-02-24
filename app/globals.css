@@ -1,26 +1,114 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Forest green palette */
+  --color-forest-50: #f0f7f4;
+  --color-forest-100: #d9ece5;
+  --color-forest-200: #b4d9cb;
+  --color-forest-300: #84bfa9;
+  --color-forest-400: #539f85;
+  --color-forest-500: #34836a;
+  --color-forest-600: #256855;
+  --color-forest-700: #1e3a2f;
+  --color-forest-800: #1a3329;
+  --color-forest-900: #162b23;
+
+  /* Amber palette */
+  --color-amber-50: #fffbeb;
+  --color-amber-100: #fef3c7;
+  --color-amber-200: #fde68a;
+  --color-amber-300: #fcd34d;
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f59e0b;
+  --color-amber-600: #d97706;
+  --color-amber-700: #b45309;
+  --color-amber-800: #92400e;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --background: #fffbf5;
+  --foreground: #1c1917;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Prose styles for entry content */
+.prose-vault {
+  line-height: 1.75;
+  color: #292524;
+}
+
+.prose-vault h1,
+.prose-vault h2,
+.prose-vault h3 {
+  font-weight: 600;
+  color: #1c1917;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose-vault h1 { font-size: 1.5rem; }
+.prose-vault h2 { font-size: 1.25rem; }
+.prose-vault h3 { font-size: 1.1rem; }
+
+.prose-vault p {
+  margin-bottom: 1em;
+}
+
+.prose-vault ul,
+.prose-vault ol {
+  padding-left: 1.5em;
+  margin-bottom: 1em;
+}
+
+.prose-vault li {
+  margin-bottom: 0.25em;
+}
+
+.prose-vault ul { list-style-type: disc; }
+.prose-vault ol { list-style-type: decimal; }
+
+.prose-vault strong { font-weight: 600; }
+.prose-vault em { font-style: italic; }
+
+.prose-vault code {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.875em;
+  background: #f5f5f4;
+  padding: 0.1em 0.3em;
+  border-radius: 0.25em;
+}
+
+.prose-vault blockquote {
+  border-left: 3px solid #d6d3d1;
+  padding-left: 1em;
+  color: #78716c;
+  font-style: italic;
+  margin: 1em 0;
+}
+
+.prose-vault hr {
+  border: none;
+  border-top: 1px solid #e7e5e4;
+  margin: 1.5em 0;
+}
+
+/* Sensitive blur */
+.sensitive-blur {
+  filter: blur(6px);
+  user-select: none;
+  transition: filter 0.2s ease;
+}
+
+.sensitive-blur:hover {
+  filter: blur(3px);
 }
