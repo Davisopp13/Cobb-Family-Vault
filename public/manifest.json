@@ -10,13 +10,19 @@
   "icons": [
     {
       "src": "/icons/icon-192.png",
-      "sizes": "192x192",
+      "sizes": "455x549",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "/icons/icon-512.png",
-      "sizes": "512x512",
+      "sizes": "455x549",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/Cobb_Family_Vault.png",
+      "sizes": "455x549",
       "type": "image/png",
       "purpose": "any maskable"
     }
