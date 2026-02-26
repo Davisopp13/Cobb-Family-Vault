@@ -17,8 +17,8 @@ export default async function SetupPage() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[#1e3a2f] text-white text-2xl mb-4 shadow-lg">
-            🔒
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[#1e3a2f] mb-4 shadow-lg overflow-hidden">
+            <img src="/icons/Cobb_Family_Vault.png" alt="Cobb Family Vault" className="w-full h-full object-cover" />
           </div>
           <h1 className="text-2xl font-bold text-[#1e3a2f]">
             Welcome to Cobb Family Vault
