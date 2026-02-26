@@ -116,6 +116,26 @@ export const invites = sqliteTable("invites", {
   expiresAt: integer("expires_at", { mode: "timestamp" }).notNull(),
 });
 
+export const attachments = sqliteTable("attachments", {
+  id: text("id")
+    .primaryKey()
+    .default(sql`(lower(hex(randomblob(16))))`),
+  entryId: text("entry_id")
+    .notNull()
+    .references(() => entries.id, { onDelete: "cascade" }),
+  familyId: text("family_id")
+    .notNull()
+    .references(() => families.id),
+  filename: text("filename").notNull(),
+  storagePath: text("storage_path").notNull(),
+  mimeType: text("mime_type").notNull(),
+  sizeBytes: integer("size_bytes").notNull(),
+  uploadedBy: text("uploaded_by").references(() => users.id),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+});
+
 export type User = typeof users.$inferSelect;
 export type Session = typeof sessions.$inferSelect;
 export type Family = typeof families.$inferSelect;
@@ -123,3 +143,4 @@ export type Section = typeof sections.$inferSelect;
 export type Entry = typeof entries.$inferSelect;
 export type EntryHistory = typeof entryHistory.$inferSelect;
 export type Invite = typeof invites.$inferSelect;
+export type Attachment = typeof attachments.$inferSelect;

@@ -1,13 +1,14 @@
 import Link from "next/link";
-import { and, desc, eq, isNull } from "drizzle-orm";
+import { and, asc, desc, eq, isNull } from "drizzle-orm";
 import { ChevronRight, Edit, Clock } from "lucide-react";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
-import { entries, entryHistory, sections, users } from "@/lib/schema";
+import { attachments, entries, entryHistory, sections, users } from "@/lib/schema";
 import { validateRequest } from "@/lib/session";
 import { formatDate, formatRelativeTime } from "@/lib/utils";
 import EntryContent from "./entry-content";
 import DeleteEntryButton from "./delete-button";
+import EntryAttachments from "@/components/entries/entry-attachments";
 
 interface EntryPageProps {
   params: Promise<{ id: string }>;
@@ -63,6 +64,13 @@ export default async function EntryPage({ params }: EntryPageProps) {
     .where(eq(entryHistory.entryId, id))
     .orderBy(desc(entryHistory.editedAt))
     .limit(20);
+
+  // Get attachments
+  const entryAttachments = await db
+    .select()
+    .from(attachments)
+    .where(eq(attachments.entryId, id))
+    .orderBy(asc(attachments.createdAt));
 
   // Get updater name
   let updaterName: string | null = null;
@@ -156,6 +164,14 @@ export default async function EntryPage({ params }: EntryPageProps) {
           isSensitive={entry.isSensitive}
         />
       </div>
+
+      {/* Attachments */}
+      <EntryAttachments
+        entryId={entry.id}
+        initialAttachments={entryAttachments}
+        currentUserId={user.id}
+        isAdmin={user.role === "admin"}
+      />
 
       {/* Edit history */}
       {history.length > 0 && (

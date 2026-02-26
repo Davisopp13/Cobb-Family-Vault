@@ -226,6 +226,13 @@ export default function EntryForm({
         </div>
       </div>
 
+      {mode === "create" && (
+        <p className="text-xs text-stone-400 flex items-center gap-1.5">
+          <span>📎</span>
+          You can attach files after saving the entry.
+        </p>
+      )}
+
       {state?.error && (
         <div className="rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
           {state.error}

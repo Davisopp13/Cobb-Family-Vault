@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { and, eq, isNull } from "drizzle-orm";
+import { and, asc, eq, isNull } from "drizzle-orm";
 import { ChevronRight } from "lucide-react";
 import { notFound, redirect } from "next/navigation";
 import { db } from "@/lib/db";
-import { entries, sections } from "@/lib/schema";
+import { attachments, entries, sections } from "@/lib/schema";
 import { validateRequest } from "@/lib/session";
 import EntryForm from "@/components/entries/entry-form";
+import EntryAttachments from "@/components/entries/entry-attachments";
 
 interface EditEntryPageProps {
   params: Promise<{ id: string }>;
@@ -42,6 +43,12 @@ export default async function EditEntryPage({ params }: EditEntryPageProps) {
     .orderBy(sections.sortOrder);
 
   const section = allSections.find((s) => s.id === entry.sectionId);
+
+  const entryAttachments = await db
+    .select()
+    .from(attachments)
+    .where(eq(attachments.entryId, id))
+    .orderBy(asc(attachments.createdAt));
 
   return (
     <div className="max-w-3xl mx-auto space-y-5">
@@ -86,6 +93,13 @@ export default async function EditEntryPage({ params }: EditEntryPageProps) {
           }}
         />
       </div>
+
+      <EntryAttachments
+        entryId={id}
+        initialAttachments={entryAttachments}
+        currentUserId={user.id}
+        isAdmin={user.role === "admin"}
+      />
     </div>
   );
 }
